@@ -1,82 +1,102 @@
-import "./Navbar.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
-  function handleClick() {}
+import "./Navbar.css";
 
+const Navbar = () => {
+  const [click, setClick] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const handleClick = () => setClick(!click);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("phone");
+    // remove email phone
+    localStorage.removeItem("doctorData");
+    setIsLoggedIn(false);
+    // setUsername("");
+
+    // Remove the reviewFormData from local storage
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith("reviewFormData_")) {
+        localStorage.removeItem(key);
+      }
+    }
+    setEmail("");
+    window.location.reload();
+  };
+  const handleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+  useEffect(() => {
+    const storedemail = sessionStorage.getItem("email");
+
+    if (storedemail) {
+      setIsLoggedIn(true);
+      setUsername(storedemail);
+    }
+  }, []);
   return (
-    <div>
-      <nav>
-        {/* <!-- Navigation logo section --> */}
-        <div className="nav__logo">
-          {/* <!-- Link to the home page --> */}
-          <a href="/">
-            StayHealthy
-            {/* <!-- Insert an SVG icon of a doctor with a stethoscope --> */}
-            <svg
-              width="23"
-              height="24"
-              viewBox="0 0 230 248"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clipPath="url(#clip0_1_18)">
-                <path
-                  d="M76.9542 83.6793L78.2958 83.5554C78.8037 83.4934 79.2637 83.297 79.6471 83.0077L79.6375 83.018C80.9217 87.792 82.4933 92.814 84.4579 98.0737C86.9783 104.956 89.4604 110.608 92.2396 116.064L91.8562 115.237C91.6262 118.999 91.3483 122.863 90.9842 126.604C90.8117 128.908 90.39 131.058 89.7479 133.083L89.7958 132.897C89.6808 132.949 89.5179 154.39 89.5179 154.39C89.5275 168.371 98.5071 180.079 110.582 183.189L110.774 183.231C111.32 181.732 112.642 180.689 114.195 180.689H119.696C121.239 180.709 122.561 181.743 123.107 183.2L123.117 183.231C135.412 180.11 144.43 168.402 144.478 154.411C144.478 154.411 144.143 133.052 143.97 132.907C143.443 131.099 143.022 128.97 142.801 126.78L142.792 126.625C142.456 122.863 142.236 119.092 141.92 115.258C144.287 110.649 146.769 105.007 148.954 99.1897L149.318 98.0943C151.282 92.8347 152.806 87.823 154.138 83.0387C154.512 83.328 154.972 83.5243 155.47 83.5863H155.48L156.831 83.7103C158.46 83.8963 159.898 82.4497 160.032 80.2073L161.489 60.2537C161.489 60.2433 161.489 60.233 161.489 60.233C161.489 58.5487 160.32 57.164 158.815 56.9573H158.796H158.633C159.007 54.0537 159.217 50.7057 159.217 47.306C159.217 39.8867 158.202 32.7153 156.314 25.9677L156.438 26.4947C150.909 13.4127 139.945 3.91634 126.74 1.26068L126.49 1.21935C123.654 0.589012 120.347 0.165345 116.974 0.0620117H116.888H116.773C113.332 0.134345 110.026 0.547678 106.825 1.28135L107.17 1.21935C93.7346 3.94734 82.7904 13.4437 77.3279 26.2157L77.2225 26.4947C75.44 32.6947 74.4146 39.8247 74.4146 47.2027C74.4146 50.6437 74.635 54.033 75.0662 57.3397L75.0279 56.9573C73.5042 57.1433 72.3254 58.5177 72.3254 60.1917V60.264L73.7821 80.2177C73.9162 82.5117 75.3729 83.8963 76.9446 83.7103L76.9542 83.6793Z"
-                  fill="#3551A4"
-                />
-                <path
-                  d="M219.612 215.739C218.941 184.326 216.028 177.217 214.456 172.401C213.833 170.469 213.325 157.408 193.315 148.934C181.048 143.726 165.217 143.623 151.819 137.516V154.504C151.79 172.773 139.658 187.974 123.606 191.291L123.385 191.332C123.088 193.213 121.593 194.618 119.801 194.639H119.629V207.452C119.629 219.976 129.04 230.123 140.655 230.123C152.27 230.123 161.68 219.976 161.68 207.452V198.503C155.854 197.563 151.436 192.21 151.436 185.742C151.436 178.622 156.793 172.846 163.396 172.846C169.999 172.846 175.356 178.622 175.356 185.742C175.356 191.384 171.992 196.178 167.315 197.935L167.229 197.966V207.452V207.938C167.229 223.768 155.327 236.602 140.645 236.602C125.963 236.602 114.061 223.768 114.061 207.938C114.061 207.762 114.061 207.597 114.061 207.421V207.442V194.515C112.355 194.391 110.975 193.006 110.707 191.229V191.208C94.5108 187.808 82.4359 172.66 82.3975 154.463V137.34C68.9425 143.571 53.015 143.695 40.6813 148.914C20.6138 157.377 20.1538 170.407 19.5404 172.37C18.0071 177.206 15.0554 184.285 14.3846 215.719C14.2696 219.852 14.3846 226.186 25.9421 231.725C51.1079 242.368 83.5283 245.675 115.489 248.052H118.555C150.583 245.696 182.955 242.399 208.102 231.725C219.612 226.217 219.717 219.914 219.612 215.739ZM78.9188 202.926H66.9779V215.853H58.4488V202.967H46.5079V193.771H58.4488V180.895H66.9779V193.771H78.9188V202.926Z"
-                  fill="#3551A4"
-                />
-                <path
-                  d="M169.865 185.638C169.865 181.794 166.98 178.674 163.415 178.674C159.85 178.674 156.965 181.784 156.965 185.628C156.965 189.472 159.85 192.582 163.415 192.582C166.97 192.582 169.855 189.472 169.865 185.638Z"
-                  fill="#3551A4"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_1_18">
-                  <rect width="230" height="248" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </a>
-          {/* <!-- A span element for styling purposes --> */}
-          <span>.</span>
-        </div>
-        {/* <!-- Navigation icon section with an onClick event listener --> */}
-        <div className="nav__icon" onClick={handleClick}>
-          {/* <!-- Font Awesome icon for bars (hamburger menu) --> */}
-          <i className="fa fa-times fa fa-bars"></i>
-        </div>
-
-        {/* <!-- Unordered list for navigation links with 'active' class --> */}
-        <ul className="nav__links active">
-          {/* <!-- List item for the 'Home' link --> */}
-          <li className="link">
-            <a href="../Landing_Page/LandingPage.html">Home</a>
-          </li>
-          {/* <!-- List item for the 'Appointments' link --> */}
-          <li className="link">
-            <a href="#">Appointments</a>
-          </li>
-          {/* <!-- List item for the 'Sign Up' link with a button --> */}
-          <li className="link">            
-              <button className="btn1">
-                <Link to="/signup">Sign Up</Link>
-              </button>            
-          </li>
-
-          {/* <!-- List item for the 'Login' link with a button --> */}
-          <li className="link">           
-            <button className="btn1">
-              <Link to="/login">Login</Link>
-            </button>            
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav>
+      <div className="nav__logo">
+        <Link to="/">
+          StayHealthy{" "}
+          <i style={{ color: "#2190FF" }} className="fa fa-user-md"></i>
+        </Link>
+        <span>.</span>
+      </div>
+      <div className="nav__icon" onClick={handleClick}>
+        <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
+      </div>
+      <ul className={click ? "nav__links active" : "nav__links"}>
+        <li className="link">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="link">
+          <Link to="/search/doctors">Appointments</Link>
+        </li>
+        <li className="link">
+          <Link to="/healthblog">Health Blog</Link>
+        </li>
+        <li className="link">
+          <Link to="/reviews">Reviews</Link>
+        </li>
+        {isLoggedIn ? (
+          <>
+           <li className="link">
+            {"Welcome, "+ username}
+              
+            </li>
+            <li className="link">
+              <button className="btn2" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="link">
+              <Link to="/signup">
+                <button className="btn1">Sign Up</button>
+              </Link>
+            </li>
+            <li className="link">
+              <Link to="/login">
+                <button className="btn1">Login</button>
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
+    </nav>
   );
-}
+};
 
 export default Navbar;
