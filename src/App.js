@@ -1,6 +1,8 @@
 // Import necessary modules from React library
 import React, { useEffect } from 'react';
 import Landing_Page from './Components/Landing_Page/Landing_Page';
+import Login from './Components/Login/Login';
+import Sign_Up from './Components/SIgn_Up/Sign_Up';
 
 
 // Import components for routing from react-router-dom library
@@ -24,6 +26,8 @@ function App() {
           <Routes>
             {/* Define individual Route components for different pages */}
             <Route path="/" element={<Landing_Page/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/signup" element={<Sign_Up/>}/>
           </Routes>
         </BrowserRouter>
     </div>
