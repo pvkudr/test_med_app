@@ -12,7 +12,7 @@ const initSpeciality = [
   "Ayurveda",
 ];
 
-const FindDoctorSearchIC = () => {
+const FindDoctorSearchIC = (props) => {
   const [doctorResultHidden, setDoctorResultHidden] = useState(true);
   const [searchDoctor, setSearchDoctor] = useState("");
   const [specialities, setSpecialities] = useState(initSpeciality);
@@ -26,7 +26,7 @@ const FindDoctorSearchIC = () => {
   return (
     <div className="finddoctor">
       <center>
-        <h1>Find a doctor and Consult instantly</h1>
+        <h1>{props.header }</h1>
         <div>
           {" "}
           <i

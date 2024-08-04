@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "./InstantConsultation.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import FindDoctorSearchIC from "./FindDoctorSearchIC/FindDoctorSearchIC";
-import DoctorCardIC from "./DoctorCardIC/DoctorCardIC";
+import { useState, useEffect } from "react";
+import "./FindDoctorSearch.css";
+import FindDoctorSearchIC from "../InstantConsultationBooking/FindDoctorSearchIC/FindDoctorSearchIC";
+import DoctorCardIC from "../InstantConsultationBooking/DoctorCardIC/DoctorCardIC";
 
-const InstantConsultation = () => {
+const FindDoctorSearch = () => {
   const [searchParams] = useSearchParams();
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
@@ -58,14 +58,10 @@ const InstantConsultation = () => {
     //     navigate("/login");
     // }
   }, [searchParams]);
-
   return (
     <center>
       <div className="searchpage-container">
-        <FindDoctorSearchIC
-          onSearch={handleSearch}
-          header={"Find a doctor and Consult instantly"}
-        />
+        <FindDoctorSearchIC onSearch={handleSearch} header="Find a doctor" />
         <div className="search-results-container">
           {isSearched ? (
             <center>
@@ -98,4 +94,4 @@ const InstantConsultation = () => {
   );
 };
 
-export default InstantConsultation;
+export default FindDoctorSearch;

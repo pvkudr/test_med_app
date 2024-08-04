@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import custom Navbar component
 import Navbar from "./Components/Navbar/Navbar";
+import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 
 // Function component for the main App
 function App() {
@@ -30,6 +31,10 @@ function App() {
           <Route
             path="/instant-consultation"
             element={<InstantConsultation />}
+          />
+          <Route
+            path="/search/doctors"
+            element={<FindDoctorSearch />}
           />
         </Routes>
       </BrowserRouter>
