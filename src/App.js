@@ -4,13 +4,13 @@ import Landing_Page from "./Components/Landing_Page/Landing_Page";
 import Login from "./Components/Login/Login";
 import Sign_Up from "./Components/SIgn_Up/Sign_Up";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation";
+import BookingConsultation from "./Components/BookingConsultation";
 
 // Import components for routing from react-router-dom library
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import custom Navbar component
 import Navbar from "./Components/Navbar/Navbar";
-import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 
 // Function component for the main App
 function App() {
@@ -32,10 +32,7 @@ function App() {
             path="/instant-consultation"
             element={<InstantConsultation />}
           />
-          <Route
-            path="/search/doctors"
-            element={<FindDoctorSearch />}
-          />
+          <Route path="/search-doctors" element={<BookingConsultation />} />
         </Routes>
       </BrowserRouter>
     </div>
