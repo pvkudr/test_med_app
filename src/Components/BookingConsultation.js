@@ -26,7 +26,8 @@ const BookingConsultation = () => {
           setFilteredDoctors(filtered);
 
           setIsSearched(true);
-          window.reload();
+          // todo check this - add location
+          // window.location.reload();
         } else {
           setFilteredDoctors([]);
           setIsSearched(false);

@@ -5,6 +5,7 @@ import Login from "./Components/Login/Login";
 import Sign_Up from "./Components/SIgn_Up/Sign_Up";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation";
 import BookingConsultation from "./Components/BookingConsultation";
+import Notification from "./Components/Notification/Notification";
 
 // Import components for routing from react-router-dom library
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,8 +20,8 @@ function App() {
     <div className="App">
       {/* Set up BrowserRouter for routing */}
       <BrowserRouter>
-        {/* Display the Navbar component */}
-        <Navbar />
+        {/* Display the Notification  - with Navbar component as a child*/}
+        <Notification>
 
         {/* Set up the Routes for different pages */}
         <Routes>
@@ -34,6 +35,7 @@ function App() {
           />
           <Route path="/search-doctors" element={<BookingConsultation />} />
         </Routes>
+        </Notification>
       </BrowserRouter>
     </div>
   );
