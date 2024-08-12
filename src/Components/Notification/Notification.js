@@ -16,7 +16,10 @@ const Notification = ({ children }) => {
     // Retrieve stored username, doctor data, and appointment data from sessionStorage and localStorage
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-    const storedAppointmentData = JSON.parse(localStorage.getItem(storedDoctorData?.name));
+    const storedAppointmentData = JSON.parse(localStorage.getItem('storageAppointmentData'));
+    console.log('storedUsername = ', storedUsername);
+    console.log('storedDoctorData = ', storedDoctorData);
+    console.log('storedAppointmentData = ', storedAppointmentData);    
 
     // Set isLoggedIn state to true and update username if storedUsername exists
     if (storedUsername) {
@@ -43,15 +46,23 @@ const Notification = ({ children }) => {
       {/* Render children components */}
       {children}
       {/* Display appointment details if user is logged in and appointmentData is available */}
-      {isLoggedIn && appointmentData && (
+      {/* //TODO remove ! */}
+      {!isLoggedIn && appointmentData && (
         <>
           <div className="appointment-card">
             <div className="appointment-card__content">
               {/* Display title for appointment details */}
-              <h3 className="appointment-card__title">Appointment Details</h3>
+              <h3 className="appointment-card__title">Appointment Details: </h3>
               <p className="appointment-card__message">
                 {/* Display doctor's name from doctorData */}
-                <strong>Doctor:</strong> {doctorData?.name}
+                <strong>Doctor:</strong> {appointmentData[0]?.doctorData?.name} <br></br>              
+                <strong>Speciality:</strong> {appointmentData[0]?.doctorData?.speciality}<br></br> 
+                <strong>Name:</strong> {appointmentData[0]?.name}<br></br> 
+                <strong>Phone Number: </strong> {appointmentData[0]?.phoneNumber}<br></br> 
+                <strong>Date of Appointment:</strong> {appointmentData[0]?.appointmentDate}<br></br> 
+                <strong>Time Slot:</strong> {appointmentData[0]?.appointmentTime}
+
+
               </p>
             </div>
           </div>

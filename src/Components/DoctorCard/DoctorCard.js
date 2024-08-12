@@ -17,17 +17,25 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
     const updatedAppointments = appointments.filter(
       (appointment) => appointment.id !== appointmentId
     );
+    localStorage.setItem('storageAppointmentData', JSON.stringify(updatedAppointments))
     setAppointments(updatedAppointments);
   };
 
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
       id: uuidv4(),
+      doctorData: {name: name, speciality: speciality},
       ...appointmentData,
     };
     const updatedAppointments = [...appointments, newAppointment];
+
+    // TODO decide what to do with multiple appointment
+    localStorage.setItem('storageAppointmentData', JSON.stringify(updatedAppointments))
     setAppointments(updatedAppointments);
     setShowModal(false);
+    // window.location.reload();
+    console.log('appointments= ', appointments);
+    
   };
 
   return (
@@ -56,13 +64,6 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
             Ratings: {ratings}
           </div>
         </div>
-        {/* for reference  */}
-        {/* <div>
-              <button className='book-appointment-btn'>                    
-                <div>Book Appointment</div>
-              <div>No Booking Fee</div>
-            </button>
-              </div> */}
       </div>
 
       <div className="doctor-card-options-container">

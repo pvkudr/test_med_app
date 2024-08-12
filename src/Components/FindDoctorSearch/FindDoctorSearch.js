@@ -17,6 +17,7 @@ const FindDoctorSearch = (props) => {
   const [searchDoctor, setSearchDoctor] = useState("");
   const [specialities, setSpecialities] = useState(initSpeciality);
   const navigate = useNavigate();
+  
   const handleDoctorSelect = (speciality) => {
     setSearchDoctor(speciality);
     setDoctorResultHidden(true);

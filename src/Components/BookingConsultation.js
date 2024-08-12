@@ -9,7 +9,7 @@ const BookingConsultation = () => {
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
-  console.log("searchParams ", searchParams);
+  // console.log("searchParams ", searchParams);
 
   const getDoctorsDetails = () => {
     fetch("https://api.npoint.io/9a5543d36f1460da2f63")

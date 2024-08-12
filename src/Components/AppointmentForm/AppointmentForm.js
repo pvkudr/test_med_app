@@ -56,14 +56,15 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       <div className="form-group">
       <label htmlFor="time">Book Time Slot :</label>
       <select
-        classNamne="form-select"
+        className="form-select"
         id= "time"
         aria-label="Default select example"
         value={appointmentTime}
         onChange={(e) => setAppointmentTime(e.target.value)}
         required
+        defaultValue='Select a time slot :'
       >
-        <option selected>Select a time slot :</option>
+        {/* <option selected>Select a time slot :</option> */}
         <option value="8:00 - 8:30">8:00 - 8:30</option>
         <option value="8:30 - 9:00">8:30 - 9:00</option>
         <option value="9:00 - 9:30">9:00 - 9:30</option>
