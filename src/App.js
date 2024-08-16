@@ -6,6 +6,7 @@ import SignUp from "./Components/SIgn_Up/Sign_Up";
 import InstantConsultation from "./Components/InstantConsultationBooking/InstantConsultation";
 import BookingConsultation from "./Components/BookingConsultation";
 import Notification from "./Components/Notification/Notification";
+import ReviewForm from "./Components/ReviewForm/ReviewForm";
 
 // Import components for routing from react-router-dom library
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -32,6 +33,7 @@ function App() {
               element={<InstantConsultation />}
             />
             <Route path="/search-doctors" element={<BookingConsultation />} />
+            <Route path="/reviews" element={<ReviewForm />} />
           </Routes>
         </Notification>
       </BrowserRouter>
