@@ -3,9 +3,7 @@
   margin-left: 30px;
   width: 80%;  
 }
-h1 {
-    
-}
+
 
 .table {
  
@@ -18,9 +16,7 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-}
-
-  
+}  
   .table tr:nth-child(even) {
     background-color: #f9f9f9;
   }
@@ -29,4 +25,11 @@ th {
     background-color: #433d3d;
     color: rgb(191, 185, 185);
 
+  }
+  .review-form {
+    background-color: #f3ebeb;
+  }
+  .review-form_review_field, .review-form_name_field, .review-form_rating_field {
+    margin-left: 5px;
+    margin-right: 5px;
   }
