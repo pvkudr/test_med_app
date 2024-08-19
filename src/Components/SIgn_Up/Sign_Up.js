@@ -20,22 +20,23 @@ const SignUp = () => {
     e.preventDefault(); // Prevent default form submission
 
     // API Call to register user
-    const response = await fetch(`${API_URL}/api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-      }),
-    });
+    // const response = await fetch(`${API_URL}/api/auth/register`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name: name,
+    //     email: email,
+    //     password: password,
+    //     phone: phone,
+    //   }),
+    // });
 
-    const json = await response.json(); // Parse the response JSON
-
-    if (json.authtoken) {
+    // const json = await response.json(); // Parse the response JSON
+//TODO 1. remove comment fetch upper, 2. remove temporary json 3. remove ! - its for sighn in just with localstorage
+const json = 'temporary'
+    if (!json.authtoken) {
       // Store user data in session storage
       sessionStorage.setItem("auth-token", json.authtoken);
       sessionStorage.setItem("name", name);
@@ -60,7 +61,7 @@ const SignUp = () => {
   return (
     <div className="container" style={{ marginTop: "5%" }}>
       <div className="signup-grid">
-      <div className="signup-text">
+        <div className="signup-text">
           {/* <!-- Title for the sign-up form --> */}
           <h1>Sign Up</h1>
         </div>

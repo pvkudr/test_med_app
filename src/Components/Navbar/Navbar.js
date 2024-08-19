@@ -36,7 +36,7 @@ const Navbar = () => {
     setShowDropdown(!showDropdown);
   };
   useEffect(() => {
-    const storedemail = sessionStorage.getItem("email");
+    const storedemail = sessionStorage.getItem("name");
 
     if (storedemail) {
       setIsLoggedIn(true);
@@ -73,10 +73,18 @@ const Navbar = () => {
         </li>
         {isLoggedIn ? (
           <>
-           <li className="link">
-            {"Welcome, "+ username}
-              
+            <li className="link welcome-user" onClick={handleDropdown}>
+              {"Welcome, " + username}
+              <div className="dropdown-menu">
+                {showDropdown && 
+                <ul>
+                  <li><Link to="/profile">Profile</Link></li>
+                  </ul>}
+              </div>
             </li>
+            <div className="dropdown-menu">
+              {showDropdown && <li>Profile</li>}
+            </div>
             <li className="link">
               <button className="btn2" onClick={handleLogout}>
                 Logout

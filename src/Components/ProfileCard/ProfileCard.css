@@ -1,0 +1,35 @@
+.profile-container{
+    max-width: 900px; /* Set maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 40px; /* Add padding inside the container */
+    margin-top: 10%; /* Set top margin as a percentage of the viewport height */
+    overflow: hidden; /* Hide any overflowing content */
+}
+.profile-grid {
+    display: grid; /* Use grid layout for the element */
+    grid-template-columns: 0.1fr 1.5fr 8fr; /* Define columns with fractional widths */
+    grid-gap: 10px; /* Set the gap between grid items */
+}
+.edit-form, .profile-details {
+    grid-column: 2 / 4; /* Span from second to fourth column */
+}
+
+p {
+    width: 40%; /* Set width of form controls */
+    padding: 8px; /* Add padding inside form controls */
+    font-size: 16px; /* Set font size */
+    border: 1px solid #ccc; /* Add border with color */
+    border-radius: 4px; /* Add border radius for rounded corners */
+}
+h3 {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px; /* Set padding for buttons */
+    font-size: 16px; /* Set font size for buttons */
+    border: none; /* Remove button borders */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    width: 40%;
+}
