@@ -8,28 +8,27 @@ const Navbar = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const handleClick = () => setClick(!click);
 
   const handleLogout = () => {
+    // remove email phone
     sessionStorage.removeItem("auth-token");
     sessionStorage.removeItem("name");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("phone");
-    // remove email phone
-    localStorage.removeItem("doctorData");
+    // TODO check the logic - if it was saved in DB? if not maybe should keep it
+    // localStorage.removeItem("storageAppointmentData");
+    // localStorage.removeItem("reviewData");
+    // another version to clean review from ls, if reviews are stored as diff files:
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   const key = localStorage.key(i);
+    //   if (key.startsWith("reviewFormData_")) {
+    //     localStorage.removeItem(key);
+    //   }
+    // }
     setIsLoggedIn(false);
-    // setUsername("");
-
-    // Remove the reviewFormData from local storage
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith("reviewFormData_")) {
-        localStorage.removeItem(key);
-      }
-    }
-    setEmail("");
+    setUsername("");
     window.location.reload();
   };
   const handleDropdown = () => {
@@ -43,6 +42,7 @@ const Navbar = () => {
       setUsername(storedemail);
     }
   }, []);
+
   return (
     <nav>
       <div className="nav__logo">
@@ -50,7 +50,7 @@ const Navbar = () => {
           StayHealthy{" "}
           <i style={{ color: "#2190FF" }} className="fa fa-user-md"></i>
         </Link>
-        <span>.</span>
+        <span></span>
       </div>
       <div className="nav__icon" onClick={handleClick}>
         <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
@@ -61,10 +61,7 @@ const Navbar = () => {
         </li>
         <li className="link">
           <Link to="/search-doctors">Book Consultation</Link>
-        </li>
-        {/* <li className="link">
-          <Link to="/instant-consultation">Instant Consultation</Link>
-        </li> */}
+        </li>       
         <li className="link">
           <Link to="/healthblog">Health Blog</Link>
         </li>
@@ -76,15 +73,18 @@ const Navbar = () => {
             <li className="link welcome-user" onClick={handleDropdown}>
               {"Welcome, " + username}
               <div className="dropdown-menu">
-                {showDropdown && 
-                <ul>
-                  <li><Link to="/profile">Profile</Link></li>
-                  </ul>}
+                {showDropdown && (
+                  <ul>
+                    <li>
+                      <Link to="/profile">Your Profile</Link>
+                    </li>
+                    <li>
+                      <Link to="/reports">Your Reports</Link>
+                    </li>
+                  </ul>
+                )}
               </div>
             </li>
-            <div className="dropdown-menu">
-              {showDropdown && <li>Profile</li>}
-            </div>
             <li className="link">
               <button className="btn2" onClick={handleLogout}>
                 Logout

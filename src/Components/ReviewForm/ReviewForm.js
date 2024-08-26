@@ -4,7 +4,8 @@ import GiveReviews from "./GiveReviews";
 
 const ReviewForm = () => {
   const [doctors, setDoctors] = useState([]);
-  const [review, setReview] = useState([]);
+  const reviewData = JSON.parse(localStorage.getItem("reviewData"));
+    const [review, setReview] = useState(reviewData?reviewData:[]);
 
   const getDoctorsDetails = () => {
     fetch("https://api.npoint.io/9a5543d36f1460da2f63")
@@ -20,16 +21,23 @@ const ReviewForm = () => {
   }, []);
 
   const handleReviewSubmit = (reviewData) => {
-    setReview(prevState => [...prevState, reviewData]);
+    // const newData = {[userName]: reviewData}
+    console.log("ReviewForm, reviewData", reviewData);
+    console.log("ReviewForm, full reviewData", [...review, reviewData]);
+    // TODO safe data in local storage
+    localStorage.setItem("reviewData", JSON.stringify([...review, reviewData]));
+
+    setReview((prevState) => [...prevState, reviewData]);
+    // setReview(prevState => [...prevState, newData])
   };
 
-  const doctorReviewCheck = (doctorName) =>{
-    const docWithReview = review.find (element=>element.doctorName === doctorName)
-    console.log('docWithReview', docWithReview);
-    
-    return docWithReview?.review
+  const doctorReviewCheck = (doctorName) => {
+    const docWithReview = review.find(
+      (element) => element.doctorName === doctorName
+    );
 
-  }
+    return docWithReview?.review;
+  };
 
   return (
     <div className="review-container">
@@ -51,10 +59,19 @@ const ReviewForm = () => {
                 <th>{index + 1}</th>
                 <td>{doctor.name}</td>
                 <td>{doctor.speciality}</td>
-                <td> {!doctorReviewCheck(doctor.name) && <GiveReviews onbattonClick={handleReviewSubmit} doctorName ={doctor.name}/>}</td>
+                <td>
+                  {" "}
+                  {!doctorReviewCheck(doctor.name) && (
+                    <GiveReviews
+                      onbattonClick={handleReviewSubmit}
+                      doctorName={doctor.name}
+                      doctorSpeciality={doctor.speciality}
+                    />
+                  )}
+                </td>
                 <td>
                   {/* Display the submitted message if available */}
-                  {doctorReviewCheck(doctor.name)?.length>0 && (
+                  {doctorReviewCheck(doctor.name)?.length > 0 && (
                     <div>
                       <h3>Submitted Message:</h3>
                       <p>{doctorReviewCheck(doctor.name)}</p>

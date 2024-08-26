@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./ReviewForm.css";
 
 // Function component for giving reviews
-function GiveReviews({ onbattonClick, doctorName }) {
+function GiveReviews({ onbattonClick, doctorName, doctorSpeciality }) {
   // State variables using useState hook
   const [showForm, setShowForm] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
@@ -12,6 +12,8 @@ function GiveReviews({ onbattonClick, doctorName }) {
     review: "",
     rating: 0,
     doctorName: doctorName,
+    doctorSpeciality: doctorSpeciality,
+    userName: sessionStorage.getItem('name')
   });
 
   // Function to handle button click event
@@ -35,6 +37,8 @@ function GiveReviews({ onbattonClick, doctorName }) {
       review: "",
       rating: 0,
       doctorName: doctorName,
+      doctorSpeciality: doctorSpeciality,
+      userName: sessionStorage.getItem('name')
     });
     // Check if all required fields are filled before submission
     if (formData.name && formData.review) {

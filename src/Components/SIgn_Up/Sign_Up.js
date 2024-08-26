@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./Sign_Up.css";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../../config";
+import { API_URL, SERVER_STATUS } from "../../config";
 
 // Function component for Sign Up form
 const SignUp = () => {
@@ -16,29 +16,46 @@ const SignUp = () => {
 
   // Function to handle form submission
   const register = async (e) => {
-    console.log('submit is working')
+    console.log("Submit from Sign_Up is working");
     e.preventDefault(); // Prevent default form submission
 
-    // API Call to register user
-    // const response = await fetch(`${API_URL}/api/auth/register`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: name,
-    //     email: email,
-    //     password: password,
-    //     phone: phone,
-    //   }),
-    // });
+    if (SERVER_STATUS) {
+      // API Call to register user
+      const response = await fetch(`${API_URL}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          phone: phone,
+        }),
+      });
 
-    // const json = await response.json(); // Parse the response JSON
-//TODO 1. remove comment fetch upper, 2. remove temporary json 3. remove ! - its for sighn in just with localstorage
-const json = 'temporary'
-    if (!json.authtoken) {
-      // Store user data in session storage
-      sessionStorage.setItem("auth-token", json.authtoken);
+      const json = await response.json(); // Parse the response JSON
+      if (json.authtoken) {
+        // Store user data in session storage
+        sessionStorage.setItem("auth-token", json.authtoken);
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("phone", phone);
+        sessionStorage.setItem("email", email);
+        // Redirect user to home page
+        navigate("/");
+        window.location.reload(); // Refresh the page
+      } else {
+        if (json.errors) {
+          for (const error of json.errors) {
+            setShowerr(error.msg); // Show error messages
+          }
+        } else {
+          setShowerr(json.error);
+        }
+      }
+      // SERVER IS OFF!
+    } else {
+      sessionStorage.setItem("auth-token", email);
       sessionStorage.setItem("name", name);
       sessionStorage.setItem("phone", phone);
       sessionStorage.setItem("email", email);
@@ -46,14 +63,6 @@ const json = 'temporary'
       // Redirect user to home page
       navigate("/");
       window.location.reload(); // Refresh the page
-    } else {
-      if (json.errors) {
-        for (const error of json.errors) {
-          setShowerr(error.msg); // Show error messages
-        }
-      } else {
-        setShowerr(json.error);
-      }
     }
   };
 

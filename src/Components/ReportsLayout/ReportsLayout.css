@@ -1,0 +1,31 @@
+
+.review-container {
+    max-width: 900px; /* Set maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 40px; /* Add padding inside the container */
+    margin-top: 10%; /* Set top margin as a percentage of the viewport height */
+    overflow: hidden; /* Hide any overflowing content */
+}
+
+.view_area {
+    padding: '20px';
+    background-color: 'lightgrey';
+    border-radius: '8px';
+}
+
+.download_button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff; /* Button color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .download_button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    color: #ffffff; /* Text color on hover */
+  }

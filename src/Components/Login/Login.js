@@ -1,6 +1,5 @@
 // Following code has been commented with appropriate comments for your reference.
 import React, { useState, useEffect } from "react";
-// Apply CSS according to your design theme or the CSS provided in week 2 lab 2
 
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
