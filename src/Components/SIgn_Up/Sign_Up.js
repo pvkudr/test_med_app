@@ -150,6 +150,7 @@ const SignUp = () => {
               >
                 Submit
               </button>
+              <div></div>
               {/* <!-- Submit button --> */}
               <button
                 type="reset"
